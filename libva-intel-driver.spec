@@ -8,6 +8,9 @@ Source0:    http://www.freedesktop.org/software/vaapi/releases/%{name}/%{name}-%
 
 ExclusiveArch:  %{ix86} x86_64
 
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  libtool
 BuildRequires:  m4
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(intel-gen4asm) >= 1.9
@@ -32,6 +35,7 @@ Hardware video decode support for Intel integrated graphics.
 %setup -q
 
 %build
+autoreconf -vif
 %configure --disable-static
 make %{?_smp_mflags}
 
@@ -40,6 +44,9 @@ make %{?_smp_mflags}
 make install DESTDIR=%{buildroot} INSTALL="install -p"
 find %{buildroot} -name "*.la" -delete
 
+# rpmlint fixes
+find %{buildroot} -name "*.c" -exec chmod 644 {} \;
+find %{buildroot} -name "*.h" -exec chmod 644 {} \;
 
 %files
 %{!?_licensedir:%global license %%doc}
@@ -54,6 +61,8 @@ find %{buildroot} -name "*.la" -delete
 - Update build requirements.
 - Always enable ASM code generation.
 - Simplify SPEC file.
+- Regenerate configure script to avoid runpath and to make wayland optional at
+  configure time.
 
 * Thu Dec 17 2015 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-1
 - Update to 1.6.2
