@@ -25,7 +25,7 @@ BuildRequires:  pkgconfig(libva-wayland) >= 0.38.1
 
 
 %description
-HW video decode support for Intel integrated graphics.
+Hardware video decode support for Intel integrated graphics.
 
 
 %prep
