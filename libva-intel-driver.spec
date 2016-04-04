@@ -17,11 +17,11 @@ BuildRequires:  pkgconfig(libva-drm)
 BuildRequires:  pkgconfig(libva-x11)
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  python2
-%{!?_without_wayland:
-BuildRequires:  pkgconfig(wayland-client) >= 1
-BuildRequires:  pkgconfig(wayland-scanner) >= 1
+%if 0%{?fedora} || 0%{?rhel} >= 8
+BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  pkgconfig(wayland-scanner)
 BuildRequires:  pkgconfig(libva-wayland) >= 0.38.1
-}
+%endif
 
 
 %description
