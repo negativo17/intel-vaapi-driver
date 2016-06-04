@@ -1,5 +1,5 @@
 Name:       libva-intel-driver
-Version:    1.6.2
+Version:    1.7.0
 Release:    2%{?dist}
 Summary:    Hardware video decode support for Intel integrated graphics
 License:    MIT and EPL
@@ -56,6 +56,9 @@ find %{buildroot} -name "*.h" -exec chmod 644 {} \;
 
 
 %changelog
+* Sat Jun 04 2016 Simone Caronni <negativo17@gmail.com> - 1.7.0-2
+- Update to 1.7.0.
+
 * Mon Apr 04 2016 Simone Caronni <negativo17@gmail.com> - 1.6.2-2
 - Add license macro.
 - Update build requirements.
