@@ -1,6 +1,6 @@
 Name:       libva-intel-driver
-Version:    1.7.0
-Release:    2%{?dist}
+Version:    1.7.1
+Release:    1%{?dist}
 Summary:    Hardware video decode support for Intel integrated graphics
 License:    MIT and EPL
 URL:        http://freedesktop.org/wiki/Software/vaapi
@@ -56,6 +56,9 @@ find %{buildroot} -name "*.h" -exec chmod 644 {} \;
 
 
 %changelog
+* Sun Jul 03 2016 Simone Caronni <negativo17@gmail.com> - 1.7.1-1
+- Update to 1.7.1.
+
 * Sat Jun 04 2016 Simone Caronni <negativo17@gmail.com> - 1.7.0-2
 - Update to 1.7.0.
 
