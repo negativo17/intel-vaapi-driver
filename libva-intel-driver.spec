@@ -1,10 +1,13 @@
 Name:       libva-intel-driver
-Version:    1.8.3
+Version:    2.3.0
 Release:    1%{?dist}
 Summary:    Hardware video decode support for Intel integrated graphics
 License:    MIT and EPL
 URL:        https://01.org/linuxmedia
+
 Source0:    https://github.com/01org/intel-vaapi-driver/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source1:    intel-vaapi-driver.metainfo.xml
+Source2:    parse-intel-vaapi-driver.py
 
 ExclusiveArch:  %{ix86} x86_64
 
@@ -14,48 +17,60 @@ BuildRequires:  libtool
 BuildRequires:  m4
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(intel-gen4asm) >= 1.9
-BuildRequires:  pkgconfig(libdrm) >= 2.4.45
-BuildRequires:  pkgconfig(libva) >= 0.38.1
-BuildRequires:  pkgconfig(libva-drm)
-BuildRequires:  pkgconfig(libva-x11)
-BuildRequires:  pkgconfig(libudev)
+BuildRequires:  pkgconfig(libdrm) >= 2.4.52
+BuildRequires:  pkgconfig(libva) >= 1.1.0
+BuildRequires:  pkgconfig(libva-drm) >= 1.1.0
+BuildRequires:  pkgconfig(libva-wayland) >= 1.1.0
+BuildRequires:  pkgconfig(libva-x11) >= 1.1.0
+BuildRequires:  pkgconfig(wayland-client) >= 1.11.0
+BuildRequires:  pkgconfig(wayland-scanner) >= 1.11.0
 BuildRequires:  python2
 %if 0%{?fedora} || 0%{?rhel} >= 8
-BuildRequires:  pkgconfig(wayland-client)
-BuildRequires:  pkgconfig(wayland-scanner)
-BuildRequires:  pkgconfig(libva-wayland) >= 0.38.1
+BuildRequires:  libappstream-glib >= 0.6.3
 %endif
 
+Provides:       intel-vaapi-driver = %{version}-%{release}
 
 %description
 Hardware video decode support for Intel integrated graphics.
 
-
 %prep
-%setup -q -n intel-vaapi-driver-%{version}
+%autosetup -n intel-vaapi-driver-%{version}
 
 %build
 autoreconf -vif
-%configure --disable-static
-make %{?_smp_mflags}
 
+%configure \
+    --disable-static \
+    --enable-x11 \
+    --enable-wayland \
+    --enable-hybrid-codec
+
+%make_build
 
 %install
-make install DESTDIR=%{buildroot} INSTALL="install -p"
+%make_install
 find %{buildroot} -name "*.la" -delete
 
-# rpmlint fixes
-find %{buildroot} -name "*.c" -exec chmod 644 {} \;
-find %{buildroot} -name "*.h" -exec chmod 644 {} \;
+%if 0%{?fedora} || 0%{?rhel} >= 8
+# install AppData and add modalias provides
+mkdir -p %{buildroot}%{_datadir}/appdata/
+install -pm 0644 %{SOURCE1} %{buildroot}%{_datadir}/appdata/
+fn=%{buildroot}%{_datadir}/appdata/intel-vaapi-driver.metainfo.xml
+%{SOURCE2} src/i965_pciids.h | xargs appstream-util add-provide ${fn} modalias
+%endif
 
 %files
-%{!?_licensedir:%global license %%doc}
 %license COPYING
-%doc NEWS README
+%doc AUTHORS NEWS README
 %{_libdir}/dri/i965_drv_video.so
-
+%{_datadir}/appdata/intel-vaapi-driver.metainfo.xml
 
 %changelog
+* Tue Dec 18 2018 Simone Caronni <negativo17@gmail.com> - 2.3.0-1
+- Update to 2.3.0.
+- Import Appstream metadata from RPMFusion.
+
 * Thu Jul 20 2017 Simone Caronni <negativo17@gmail.com> - 1.8.3-1
 - Update to 1.8.3.
 
