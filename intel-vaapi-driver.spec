@@ -42,7 +42,7 @@ BuildRequires:  libappstream-glib >= 0.6.3
 %endif
 
 Provides:       libva-intel-driver%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Obsoletes:      libva-intel-driver%{?_isa} < %{?epoch:%{epoch}:}%{version}-%{release}
+Obsoletes:      libva-intel-driver < %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description
 VA-API (Video Acceleration API) user mode driver for Intel GEN Graphics family.
