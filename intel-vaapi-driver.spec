@@ -1,34 +1,27 @@
+%global commit0 9bc30a0231e55f17afed50589669d11e844d0bb9
+%global date 20190910
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+
 Name:       intel-vaapi-driver
-Version:    2.3.0
-Release:    3%{?dist}
+Version:    2.4.0.1
+Release:    1%{?dist}
 Summary:    VA-API user mode driver for Intel GEN Graphics family
 License:    MIT and EPL
 URL:        https://01.org/linuxmedia
 
-Source0:    https://github.com/01org/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:    https://github.com/intel/%{name}/archive/%{commit0}/%{name}-%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz 
 Source1:    %{name}.metainfo.xml
 Source2:    %{name}.py
-
-# Upstream patches
-# git format-patch 72f10f16f7e5767492acde130eeeaa598d26a3a6..HEAD
-Patch0:     0001-HEVC-encoder-correct-the-minimal-bitrate-for-VBR.patch
-Patch1:     0002-Check-the-interface-from-libva-first.patch
-Patch2:     0003-build-meson-compile-without-wayland-support.patch
-Patch3:     0004-Revert-VPP-clear-a-surface-using-media-pipeline-on-G.patch
-Patch4:     0005-Return-false-instead-of-assertion-failure.patch
-Patch5:     0006-android-ignore-unimportant-compile-warnnings.patch
-Patch6:     0007-android-avoid-compile-warnnings.patch
-Patch7:     0008-Remove-dependency-on-EncROI-attribute-to-enable-enco.patch
-Patch8:     0009-Fix-off-by-one-in-use-of-ROI-regions-in-CQP-mode.patch
 
 ExclusiveArch:  %{ix86} x86_64
 
 BuildRequires:  autoconf
 BuildRequires:  automake
+BuildRequires:  git
+BuildRequires:  igt-gpu-tools >= 1.9
 BuildRequires:  libtool
 BuildRequires:  m4
 BuildRequires:  pkgconfig(egl)
-BuildRequires:  pkgconfig(intel-gen4asm) >= 1.9
 BuildRequires:  pkgconfig(libdrm) >= 2.4.52
 BuildRequires:  pkgconfig(libva) >= 1.4.0
 BuildRequires:  pkgconfig(libva-drm) >= 1.4.0
@@ -48,7 +41,7 @@ Obsoletes:      libva-intel-driver < %{?epoch:%{epoch}:}%{version}-%{release}
 VA-API (Video Acceleration API) user mode driver for Intel GEN Graphics family.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{commit0}
 
 %build
 autoreconf -vif
@@ -78,6 +71,9 @@ install -pm 0644 -D %{SOURCE1} %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Mon Oct 07 2019 Simone Caronni <negativo17@gmail.com> - 2.4.0.1-1
+- Update to latest git snapshot.
+
 * Sat Mar 09 2019 Simone Caronni <negativo17@gmail.com> - 2.3.0-3
 - Add upstream patches (2.4.0-pre1).
 
