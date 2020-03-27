@@ -1,15 +1,14 @@
-%global commit0 9bc30a0231e55f17afed50589669d11e844d0bb9
-%global date 20190910
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%define _legacy_common_support 1
 
 Name:       intel-vaapi-driver
-Version:    2.4.0.1
-Release:    1%{?dist}
+Epoch:      1
+Version:    2.4.0
+Release:    2%{?dist}
 Summary:    VA-API user mode driver for Intel GEN Graphics family
 License:    MIT and EPL
 URL:        https://01.org/linuxmedia
 
-Source0:    https://github.com/intel/%{name}/archive/%{commit0}/%{name}-%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz 
+Source0:    https://github.com/intel/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:    %{name}.metainfo.xml
 Source2:    %{name}.py
 
@@ -41,7 +40,7 @@ Obsoletes:      libva-intel-driver < %{?epoch:%{epoch}:}%{version}-%{release}
 VA-API (Video Acceleration API) user mode driver for Intel GEN Graphics family.
 
 %prep
-%autosetup -p1 -n %{name}-%{commit0}
+%autosetup -p1
 
 %build
 autoreconf -vif
@@ -71,6 +70,9 @@ install -pm 0644 -D %{SOURCE1} %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Fri Mar 20 2020 Simone Caronni <negativo17@gmail.com> - 1:2.4.0-2
+- Update to official 2.4.0 release.
+
 * Mon Oct 07 2019 Simone Caronni <negativo17@gmail.com> - 2.4.0.1-1
 - Update to latest git snapshot.
 
