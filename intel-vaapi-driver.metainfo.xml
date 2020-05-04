@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2018 Nicolas Chauvet <kwizart@gmail.com> -->
 <component type="driver">
-  <id>libva-intel-driver</id>
-  <name>HW video decode support for Intel integrated graphics</name>
-  <summary>Accelerated Linux Graphics Driver</summary>
+  <id>intel-vaapi-driver</id>
+  <name>Intel GEN Graphics family video acceleration driver</name>
+  <summary>VA-API user mode driver for Intel GEN Graphics family</summary>
   <description>
     <p>
-      HW video decode support for Intel integrated graphics.
+      The current video driver backend provides a bridge to the GEN GPUs through the packaging of buffers and commands to be sent to the i915 driver for exercising both hardware and shader functionality for video decode, encode, and processing.
     </p>
   </description>
   <translation/>
-  <url type="homepage">https://github.com/intel/intel-vaapi-driver</url>
+  <url type="homepage">https://01.org/linuxmedia/vaapi</url>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LicenseRef:MIT</project_license>
   <developer_name>Intel Corporation</developer_name>
@@ -27,4 +27,5 @@
     <keyword>vp8</keyword>
     <keyword>vp9</keyword>
   </keywords>
+  <update_contact>negativo17@gmail.com</update_contact>
 </component>

@@ -3,7 +3,7 @@
 Name:       intel-vaapi-driver
 Epoch:      1
 Version:    2.4.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    VA-API user mode driver for Intel GEN Graphics family
 License:    MIT and EPL
 URL:        https://01.org/linuxmedia
@@ -17,9 +17,7 @@ ExclusiveArch:  %{ix86} x86_64
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  git
-BuildRequires:  igt-gpu-tools >= 1.9
 BuildRequires:  libtool
-BuildRequires:  m4
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(libdrm) >= 2.4.52
 BuildRequires:  pkgconfig(libva) >= 1.4.0
@@ -58,7 +56,7 @@ autoreconf -vif
 find %{buildroot} -name "*.la" -delete
 
 %if 0%{?fedora} || 0%{?rhel} >= 8
-# install AppData and add modalias provides
+# Install AppData and add modalias provides
 install -pm 0644 -D %{SOURCE1} %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
 %{SOURCE2} src/i965_pciids.h | xargs appstream-util add-provide %{buildroot}%{_metainfodir}/%{name}.metainfo.xml modalias
 %endif
@@ -67,9 +65,14 @@ install -pm 0644 -D %{SOURCE1} %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
 %license COPYING
 %doc AUTHORS NEWS README
 %{_libdir}/dri/i965_drv_video.so
+%if 0%{?fedora} || 0%{?rhel} >= 8
 %{_metainfodir}/%{name}.metainfo.xml
+%endif
 
 %changelog
+* Mon May 04 2020 Simone Caronni <negativo17@gmail.com> - 1:2.4.0-3
+- Small updates to SPEC file, fix build on RHEL/CentOS 7.
+
 * Fri Mar 20 2020 Simone Caronni <negativo17@gmail.com> - 1:2.4.0-2
 - Update to official 2.4.0 release.
 
