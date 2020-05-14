@@ -33,6 +33,8 @@ BuildRequires:  libappstream-glib >= 0.6.3
 
 Provides:       libva-intel-driver%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Obsoletes:      libva-intel-driver < %{?epoch:%{epoch}:}%{version}-%{release}
+Provides:       libva-intel-hybrid-driver%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Obsoletes:      libva-intel-hybrid-driver < %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description
 VA-API (Video Acceleration API) user mode driver for Intel GEN Graphics family.
@@ -72,6 +74,7 @@ install -pm 0644 -D %{SOURCE1} %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
 %changelog
 * Mon May 04 2020 Simone Caronni <negativo17@gmail.com> - 1:2.4.0-3
 - Small updates to SPEC file, fix build on RHEL/CentOS 7.
+- Obsolete also libva-intel-hybrid-driver.
 
 * Fri Mar 20 2020 Simone Caronni <negativo17@gmail.com> - 1:2.4.0-2
 - Update to official 2.4.0 release.
