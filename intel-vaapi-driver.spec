@@ -3,8 +3,8 @@
 
 Name:       intel-vaapi-driver
 Epoch:      1
-Version:    2.4.0
-Release:    3%{?dist}
+Version:    2.4.1
+Release:    1%{?dist}
 Summary:    VA-API user mode driver for Intel GEN Graphics family
 License:    MIT and EPL
 URL:        https://01.org/linuxmedia
@@ -73,6 +73,9 @@ install -pm 0644 -D %{SOURCE1} %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
 %endif
 
 %changelog
+* Tue Jan  5 2021 Simone Caronni <negativo17@gmail.com> - 1:2.4.1-1
+- Update to 2.4.1.
+
 * Mon May 04 2020 Simone Caronni <negativo17@gmail.com> - 1:2.4.0-3
 - Small updates to SPEC file, fix build on RHEL/CentOS 7.
 - Obsolete also libva-intel-hybrid-driver.
