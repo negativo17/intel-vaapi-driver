@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2018 Nicolas Chauvet <kwizart@gmail.com> -->
 <component type="driver">
   <id>intel-vaapi-driver</id>
-  <name>Intel GEN Graphics family video acceleration driver</name>
-  <summary>VA-API user mode driver for Intel GEN Graphics family</summary>
-  <description>
-    <p>
-      The current video driver backend provides a bridge to the GEN GPUs through the packaging of buffers and commands to be sent to the i915 driver for exercising both hardware and shader functionality for video decode, encode, and processing.
-    </p>
-  </description>
-  <translation/>
-  <url type="homepage">https://01.org/linuxmedia/vaapi</url>
-  <metadata_license>CC0-1.0</metadata_license>
-  <project_license>LicenseRef:MIT</project_license>
+  <name>Intel VA-API driver (legacy)</name>
+  <summary>Intel GEN Graphics family video acceleration driver</summary>
   <developer_name>Intel Corporation</developer_name>
+  <description><p>VA-API (Video Acceleration API) user mode driver for Intel GEN Graphics family.</p></description>
   <keywords>
-    <keyword>Intel</keyword>
-    <keyword>driver</keyword>
-    <keyword>VA-API</keyword>
-    <keyword>vaapi</keyword>
-    <keyword>HW</keyword>
-    <keyword>Video</keyword>
     <keyword>Decode</keyword>
     <keyword>Encode</keyword>
+    <keyword>HW</keyword>
+    <keyword>Intel</keyword>
+    <keyword>Media</keyword>
+    <keyword>VA-API</keyword>
+    <keyword>Video</keyword>
+    <keyword>av1</keyword>
+    <keyword>avc</keyword>
+    <keyword>driver</keyword>
     <keyword>h264</keyword>
+    <keyword>h265</keyword>
+    <keyword>hevc</keyword>
+    <keyword>jpeg</keyword>
+    <keyword>mpeg2</keyword>
+    <keyword>vaapi</keyword>
+    <keyword>vc-1</keyword>
     <keyword>vp8</keyword>
     <keyword>vp9</keyword>
   </keywords>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT AND EPL-1.0</project_license>
+  <url type="homepage">https://github.com/intel/intel-vaapi-driver</url>
   <update_contact>negativo17@gmail.com</update_contact>
 </component>

@@ -4,9 +4,9 @@
 Name:       intel-vaapi-driver
 Epoch:      1
 Version:    2.4.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    VA-API user mode driver for Intel GEN Graphics family
-License:    MIT and EPL
+License:    MIT and EPL-1.0
 URL:        https://01.org/linuxmedia
 
 Source0:    https://github.com/intel/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -64,6 +64,11 @@ install -pm 0644 -D %{SOURCE1} %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
 %{SOURCE2} src/i965_pciids.h | xargs appstream-util add-provide %{buildroot}%{_metainfodir}/%{name}.metainfo.xml modalias
 %endif
 
+%if 0%{?fedora} || 0%{?rhel} >= 8
+%check
+appstream-util validate --nonet %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
+%endif
+
 %files
 %license COPYING
 %doc AUTHORS NEWS README
@@ -73,6 +78,10 @@ install -pm 0644 -D %{SOURCE1} %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
 %endif
 
 %changelog
+* Wed Apr 14 2021 Simone Caronni <negativo17@gmail.com> - 1:2.4.1-2
+- Rework AppStream metadata.
+- Fix license.
+
 * Tue Jan  5 2021 Simone Caronni <negativo17@gmail.com> - 1:2.4.1-1
 - Update to 2.4.1.
 
