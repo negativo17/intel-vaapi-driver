@@ -33,7 +33,7 @@ BuildRequires:  pkgconfig(libva-wayland) >= 1.1.0
 BuildRequires:  pkgconfig(libva-x11) >= 1.4.0
 BuildRequires:  pkgconfig(wayland-client) >= 1.11.0
 BuildRequires:  pkgconfig(wayland-scanner) >= 1.11.0
-BuildRequires:  python2
+BuildRequires:  python3
 %if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  libappstream-glib >= 0.6.3
 %endif
@@ -94,6 +94,7 @@ appstream-util validate --nonet %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
 %changelog
 * Mon Oct 25 2021 Simone Caronni <negativo17@gmail.com> - 1:2.4.1-3
 - Add latest patches from master.
+- Use Python 3 for getting PCI IDs.
 
 * Wed Apr 14 2021 Simone Caronni <negativo17@gmail.com> - 1:2.4.1-2
 - Rework AppStream metadata.
