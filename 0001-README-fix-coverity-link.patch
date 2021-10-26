@@ -1,0 +1,24 @@
+From 567a22c8d1e495807d3ece471fe417c3fe0428f5 Mon Sep 17 00:00:00 2001
+From: "U. Artie Eoff" <ullysses.a.eoff@intel.com>
+Date: Wed, 1 Jul 2020 14:44:04 -0700
+Subject: [PATCH 1/5] README: fix coverity link
+
+---
+ README.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/README.md b/README.md
+index bee6a27..d0ce9b0 100644
+--- a/README.md
++++ b/README.md
+@@ -1,6 +1,6 @@
+ [![Stories in Ready](https://badge.waffle.io/intel/intel-vaapi-driver.png?label=ready&title=Ready)](http://waffle.io/intel/intel-vaapi-driver)
+ [![Build Status](https://travis-ci.org/intel/intel-vaapi-driver.svg?branch=master)](https://travis-ci.org/intel/intel-vaapi-driver)
+-[![Coverity Scan Build Status](https://scan.coverity.com/projects/11612/badge.svg)](https://scan.coverity.com/projects/intel-intel-vaapi-driver)
++[![Coverity Scan Build Status](https://scan.coverity.com/projects/11612/badge.svg)](https://scan.coverity.com/projects/01org-intel-vaapi-driver)
+ 
+ # Intel-vaapi-driver Project
+ 
+-- 
+2.31.1
+

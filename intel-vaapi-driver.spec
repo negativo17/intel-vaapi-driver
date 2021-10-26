@@ -4,7 +4,7 @@
 Name:       intel-vaapi-driver
 Epoch:      1
 Version:    2.4.1
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    VA-API user mode driver for Intel GEN Graphics family
 License:    MIT and EPL-1.0
 URL:        https://01.org/linuxmedia
@@ -12,6 +12,12 @@ URL:        https://01.org/linuxmedia
 Source0:    https://github.com/intel/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:    %{name}.metainfo.xml
 Source2:    %{name}.py
+# git format-patch 6b01d08aa24937da1375263e07c3cddf5e09e3ef..HEAD
+Patch0:     0001-README-fix-coverity-link.patch
+Patch1:     0002-Handle-odd-resolution.patch
+Patch2:     0003-Avoid-GPU-crash-with-malformed-streams.patch
+Patch3:     0004-The-3D-multisample-state-needs-to-be-resent-as-part-.patch
+Patch4:     0005-Fix-VP9.2-config-verification.patch
 
 ExclusiveArch:  %{ix86} x86_64
 
@@ -78,6 +84,9 @@ appstream-util validate --nonet %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
 %endif
 
 %changelog
+* Mon Oct 25 2021 Simone Caronni <negativo17@gmail.com> - 1:2.4.1-3
+- Add latest patches from master.
+
 * Wed Apr 14 2021 Simone Caronni <negativo17@gmail.com> - 1:2.4.1-2
 - Rework AppStream metadata.
 - Fix license.
