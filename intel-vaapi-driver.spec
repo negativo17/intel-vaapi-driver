@@ -38,6 +38,10 @@ BuildRequires:  python2
 BuildRequires:  libappstream-glib >= 0.6.3
 %endif
 
+%if 0%{?rhel} == 7
+BuildRequires:  devtoolset-9-gcc-c++
+%endif
+
 Provides:       libva-intel-driver%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Obsoletes:      libva-intel-driver < %{?epoch:%{epoch}:}%{version}-%{release}
 Provides:       libva-intel-hybrid-driver%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -50,6 +54,10 @@ VA-API (Video Acceleration API) user mode driver for Intel GEN Graphics family.
 %autosetup -p1
 
 %build
+%if 0%{?rhel} == 7
+. /opt/rh/devtoolset-9/enable
+%endif
+
 autoreconf -vif
 
 %configure \
