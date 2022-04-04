@@ -1,10 +1,7 @@
-%global __cmake_in_source_build 1
-%define _legacy_common_support 1
-
 Name:       intel-vaapi-driver
 Epoch:      1
 Version:    2.4.1
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    VA-API user mode driver for Intel GEN Graphics family
 License:    MIT and EPL-1.0
 URL:        https://01.org/linuxmedia
@@ -21,10 +18,9 @@ Patch4:     0005-Fix-VP9.2-config-verification.patch
 
 ExclusiveArch:  %{ix86} x86_64
 
-BuildRequires:  autoconf
-BuildRequires:  automake
+BuildRequires:  devtoolset-9-gcc-c++
 BuildRequires:  git
-BuildRequires:  libtool
+BuildRequires:  meson >= 0.43.0
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(libdrm) >= 2.4.52
 BuildRequires:  pkgconfig(libva) >= 1.4.0
@@ -34,18 +30,11 @@ BuildRequires:  pkgconfig(libva-x11) >= 1.4.0
 BuildRequires:  pkgconfig(wayland-client) >= 1.11.0
 BuildRequires:  pkgconfig(wayland-scanner) >= 1.11.0
 BuildRequires:  python3
-%if 0%{?fedora} || 0%{?rhel} >= 8
-BuildRequires:  libappstream-glib >= 0.6.3
-%endif
 
-%if 0%{?rhel} == 7
-BuildRequires:  devtoolset-9-gcc-c++
-%endif
-
-Provides:       libva-intel-driver%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Obsoletes:      libva-intel-driver < %{?epoch:%{epoch}:}%{version}-%{release}
-Provides:       libva-intel-hybrid-driver%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Obsoletes:      libva-intel-hybrid-driver < %{?epoch:%{epoch}:}%{version}-%{release}
+Provides:       libva-intel-driver%{?_isa} = %{epoch}:%{version}-%{release}
+Obsoletes:      libva-intel-driver < %{epoch}:%{version}-%{release}
+Provides:       libva-intel-hybrid-driver%{?_isa} = %{epoch}:%{version}-%{release}
+Obsoletes:      libva-intel-hybrid-driver < %{epoch}:%{version}-%{release}
 
 %description
 VA-API (Video Acceleration API) user mode driver for Intel GEN Graphics family.
@@ -54,44 +43,29 @@ VA-API (Video Acceleration API) user mode driver for Intel GEN Graphics family.
 %autosetup -p1
 
 %build
-%if 0%{?rhel} == 7
 . /opt/rh/devtoolset-9/enable
-%endif
 
-autoreconf -vif
+%meson \
+  -D enable_hybrid_codec=true \
+  -D with_x11=yes \
+  -D with_wayland=yes
 
-%configure \
-    --disable-static \
-    --enable-x11 \
-    --enable-wayland \
-    --enable-hybrid-codec
-
-%make_build
+%meson_build
 
 %install
-%make_install
+%meson_install
 find %{buildroot} -name "*.la" -delete
-
-%if 0%{?fedora} || 0%{?rhel} >= 8
-# Install AppData and add modalias provides
-install -pm 0644 -D %{SOURCE1} %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
-%{SOURCE2} src/i965_pciids.h | xargs appstream-util add-provide %{buildroot}%{_metainfodir}/%{name}.metainfo.xml modalias
-%endif
-
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%check
-appstream-util validate --nonet %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
-%endif
 
 %files
 %license COPYING
 %doc AUTHORS NEWS README
 %{_libdir}/dri/i965_drv_video.so
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%{_metainfodir}/%{name}.metainfo.xml
-%endif
 
 %changelog
+* Mon Apr 04 2022 Simone Caronni <negativo17@gmail.com> - 1:2.4.1-4
+- Switch to meson for building.
+- Clean up SPEC file.
+
 * Mon Oct 25 2021 Simone Caronni <negativo17@gmail.com> - 1:2.4.1-3
 - Add latest patches from master.
 - Use Python 3 for getting PCI IDs.
