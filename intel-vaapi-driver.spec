@@ -1,7 +1,7 @@
 Name:       intel-vaapi-driver
 Epoch:      1
 Version:    2.4.1
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    VA-API user mode driver for Intel GEN Graphics family
 License:    MIT and EPL-1.0
 URL:        https://01.org/linuxmedia
@@ -69,6 +69,9 @@ appstream-util validate --nonet %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Tue Jun 25 2024 Simone Caronni <negativo17@gmail.com> - 1:2.4.1-5
+- Add Intel logo to AppData.
+
 * Mon Apr 04 2022 Simone Caronni <negativo17@gmail.com> - 1:2.4.1-4
 - Switch to meson for building.
 - Clean up SPEC file.
