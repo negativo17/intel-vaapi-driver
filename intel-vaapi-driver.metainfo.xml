@@ -4,7 +4,7 @@
   <name>Intel VA-API driver (legacy)</name>
   <summary>Intel GEN Graphics family video acceleration driver</summary>
   <developer_name>Intel Corporation</developer_name>
-  <icon type="remote" width="128" height="128">https://upload.wikimedia.org/wikipedia/commons/6/64/Intel-logo-2022.png</icon>
+  <icon type="remote" width="128" height="128">https://truera.com/wp-content/uploads/2022/12/intel-logo-square.svg</icon>
   <description>
     <p>VA-API (Video Acceleration API) user mode driver for Intel GEN Graphics family.</p>
   </description>
