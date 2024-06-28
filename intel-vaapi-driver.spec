@@ -1,7 +1,7 @@
 Name:       intel-vaapi-driver
 Epoch:      1
 Version:    2.4.1
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    VA-API user mode driver for Intel GEN Graphics family
 License:    MIT and EPL-1.0
 URL:        https://01.org/linuxmedia
@@ -9,6 +9,7 @@ URL:        https://01.org/linuxmedia
 Source0:    https://github.com/intel/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:    %{name}.metainfo.xml
 Source2:    %{name}.py
+Source3:    %{name}.svg
 # git format-patch 6b01d08aa24937da1375263e07c3cddf5e09e3ef..HEAD
 Patch0:     0001-README-fix-coverity-link.patch
 Patch1:     0002-Handle-odd-resolution.patch
@@ -58,6 +59,7 @@ find %{buildroot} -name "*.la" -delete
 # Install AppData and add modalias provides
 install -pm 0644 -D %{SOURCE1} %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
 %{SOURCE2} src/i965_pciids.h | xargs appstream-util add-provide %{buildroot}%{_metainfodir}/%{name}.metainfo.xml modalias
+install -pm 0644 -D %{SOURCE3} %{buildroot}%{_datadir}/pixmaps/%{name}.svg
 
 %check
 appstream-util validate --nonet %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
@@ -66,9 +68,13 @@ appstream-util validate --nonet %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
 %license COPYING
 %doc AUTHORS NEWS README
 %{_libdir}/dri/i965_drv_video.so
+%{_datadir}/pixmaps/%{name}.svg
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Fri Jun 28 2024 Simone Caronni <negativo17@gmail.com> - 1:2.4.1-7
+- Use local icon for Appstream metadata.
+
 * Tue Jun 25 2024 Simone Caronni <negativo17@gmail.com> - 1:2.4.1-6
 - Switch to squared logo for metadata.
 
