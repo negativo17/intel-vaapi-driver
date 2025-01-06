@@ -16,6 +16,10 @@ Patch1:     0002-Handle-odd-resolution.patch
 Patch2:     0003-Avoid-GPU-crash-with-malformed-streams.patch
 Patch3:     0004-The-3D-multisample-state-needs-to-be-resent-as-part-.patch
 Patch4:     0005-Fix-VP9.2-config-verification.patch
+Patch5:     0006-i965_device_info.c-Add-missing-entries-to-gen7_cpu_h.patch
+Patch6:     0007-Update-COPYING-with-copyright-line.patch
+Patch7:     0008-add-required-SECURITY.md-file-for-OSSF-Scorecard-com.patch
+Patch8:     0009-Make-wl_drm-optional.patch
 
 ExclusiveArch:  %{ix86} x86_64
 
