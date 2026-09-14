@@ -1,25 +1,15 @@
 Name:       intel-vaapi-driver
 Epoch:      1
-Version:    2.4.1
-Release:    8%{?dist}
+Version:    2.4.5
+Release:    1%{?dist}
 Summary:    VA-API user mode driver for Intel GEN Graphics family
 License:    MIT and EPL-1.0
-URL:        https://01.org/linuxmedia
+URL:        https://github.com/irql-notlessorequal/intel-vaapi-driver
 
-Source0:    https://github.com/intel/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:    %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:    %{name}.metainfo.xml
 Source2:    %{name}.py
 Source3:    %{name}.svg
-# git format-patch 6b01d08aa24937da1375263e07c3cddf5e09e3ef..HEAD
-Patch0:     0001-README-fix-coverity-link.patch
-Patch1:     0002-Handle-odd-resolution.patch
-Patch2:     0003-Avoid-GPU-crash-with-malformed-streams.patch
-Patch3:     0004-The-3D-multisample-state-needs-to-be-resent-as-part-.patch
-Patch4:     0005-Fix-VP9.2-config-verification.patch
-Patch5:     0006-i965_device_info.c-Add-missing-entries-to-gen7_cpu_h.patch
-Patch6:     0007-Update-COPYING-with-copyright-line.patch
-Patch7:     0008-add-required-SECURITY.md-file-for-OSSF-Scorecard-com.patch
-Patch8:     0009-Make-wl_drm-optional.patch
 
 ExclusiveArch:  %{ix86} x86_64
 
@@ -52,7 +42,7 @@ VA-API (Video Acceleration API) user mode driver for Intel GEN Graphics family.
 %meson \
   -D enable_hybrid_codec=true \
   -D with_x11=yes \
-  -D with_wayland=yes
+  -D with_wayland_drm=auto
 
 %meson_build
 
@@ -69,13 +59,16 @@ install -pm 0644 -D %{SOURCE3} %{buildroot}%{_datadir}/pixmaps/%{name}.svg
 appstream-util validate --nonet %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
 
 %files
-%license COPYING
-%doc AUTHORS NEWS README
+%license LICENSE
+%doc AUTHORS NEWS README README.md SECURITY.md
 %{_libdir}/dri/i965_drv_video.so
 %{_datadir}/pixmaps/%{name}.svg
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Mon Sep 14 2026 Simone Caronni <negativo17@gmail.com> - 1:2.4.5-1
+- Update to irql-notlessorequal 2.4.5 fork.
+
 * Mon Jan 06 2025 Simone Caronni <negativo17@gmail.com> - 1:2.4.1-8
 - Fix video acceleration under Wayland (thanks scadu).
 
