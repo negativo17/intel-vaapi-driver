@@ -50,9 +50,9 @@ VA-API (Video Acceleration API) user mode driver for Intel GEN Graphics family.
 %meson_install
 find %{buildroot} -name "*.la" -delete
 
-# Install AppData and add modalias provides
+# Install AppData and add modalias provides, do not use appstream-util add-provide as it mangles the xml
 install -pm 0644 -D %{SOURCE1} %{buildroot}%{_metainfodir}/com.intel.vaapi_driver.metainfo.xml
-%{SOURCE2} src/i965_pciids.h | xargs appstream-util add-provide %{buildroot}%{_metainfodir}/com.intel.vaapi_driver.metainfo.xml modalias
+%{SOURCE2} src/i965_pciids.h %{buildroot}%{_metainfodir}/com.intel.vaapi_driver.metainfo.xml
 install -pm 0644 -D %{SOURCE3} %{buildroot}%{_datadir}/pixmaps/com.intel.vaapi_driver.svg
 
 %check
@@ -68,6 +68,8 @@ appstream-util validate --nonet %{buildroot}%{_metainfodir}/com.intel.vaapi_driv
 %changelog
 * Fri Oct 02 2026 Simone Caronni <negativo17@gmail.com> - 1:2.4.5-2
 - Switch to reverse DNS AppStream ID.
+- Do not use appstream-util add-provide, it drops the developer tag. Same fix
+  as in the NVIDIA drivers.
 
 * Mon Sep 14 2026 Simone Caronni <negativo17@gmail.com> - 1:2.4.5-1
 - Update to irql-notlessorequal 2.4.5 fork.
