@@ -1,15 +1,15 @@
 Name:       intel-vaapi-driver
 Epoch:      1
 Version:    2.4.5
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    VA-API user mode driver for Intel GEN Graphics family
 License:    MIT and EPL-1.0
 URL:        https://github.com/irql-notlessorequal/intel-vaapi-driver
 
 Source0:    %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Source1:    %{name}.metainfo.xml
+Source1:    com.intel.vaapi_driver.metainfo.xml
 Source2:    %{name}.py
-Source3:    %{name}.svg
+Source3:    com.intel.vaapi_driver.svg
 
 ExclusiveArch:  %{ix86} x86_64
 
@@ -51,21 +51,24 @@ VA-API (Video Acceleration API) user mode driver for Intel GEN Graphics family.
 find %{buildroot} -name "*.la" -delete
 
 # Install AppData and add modalias provides
-install -pm 0644 -D %{SOURCE1} %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
-%{SOURCE2} src/i965_pciids.h | xargs appstream-util add-provide %{buildroot}%{_metainfodir}/%{name}.metainfo.xml modalias
-install -pm 0644 -D %{SOURCE3} %{buildroot}%{_datadir}/pixmaps/%{name}.svg
+install -pm 0644 -D %{SOURCE1} %{buildroot}%{_metainfodir}/com.intel.vaapi_driver.metainfo.xml
+%{SOURCE2} src/i965_pciids.h | xargs appstream-util add-provide %{buildroot}%{_metainfodir}/com.intel.vaapi_driver.metainfo.xml modalias
+install -pm 0644 -D %{SOURCE3} %{buildroot}%{_datadir}/pixmaps/com.intel.vaapi_driver.svg
 
 %check
-appstream-util validate --nonet %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
+appstream-util validate --nonet %{buildroot}%{_metainfodir}/com.intel.vaapi_driver.metainfo.xml
 
 %files
 %license LICENSE
 %doc AUTHORS NEWS README README.md SECURITY.md
 %{_libdir}/dri/i965_drv_video.so
-%{_datadir}/pixmaps/%{name}.svg
-%{_metainfodir}/%{name}.metainfo.xml
+%{_datadir}/pixmaps/com.intel.vaapi_driver.svg
+%{_metainfodir}/com.intel.vaapi_driver.metainfo.xml
 
 %changelog
+* Fri Oct 02 2026 Simone Caronni <negativo17@gmail.com> - 1:2.4.5-2
+- Switch to reverse DNS AppStream ID.
+
 * Mon Sep 14 2026 Simone Caronni <negativo17@gmail.com> - 1:2.4.5-1
 - Update to irql-notlessorequal 2.4.5 fork.
 
